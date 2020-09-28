@@ -44,9 +44,16 @@ public abstract class NetToolKitClient {
         mstrApiKey = strApiKey;
         mbUseHttps = bUseHttps;
         // TLSv1.3 is not well supported in java right now; turn it off in the mean time?
-        System.setProperty("jdk.tls.client.protocols", "TLSv1.1,TLSv1.2");
-        System.setProperty("https.protocols", "TLSv1.1,TLSv1.2");
-        mHttpClient = HttpClient.newHttpClient();
+        // System.setProperty("jdk.tls.client.protocols", "TLSv1.1,TLSv1.2");
+        // System.setProperty("https.protocols", "TLSv1.1,TLSv1.2");
+        // mHttpClient = HttpClient.newHttpClient();
+        try {
+            mHttpClient = HttpClient.newBuilder()
+                .sslContext(SSLContext.getInstance("TLSv1.2"))
+                .build();
+        } catch (NoSuchAlgorithmException nae) {
+            throw new IllegalStateException("HTTP client failed to initialize", nae);
+        }
     }
     // Getters/setters
     public String getApiKey() { return mstrApiKey; }
