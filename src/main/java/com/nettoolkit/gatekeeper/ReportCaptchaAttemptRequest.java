@@ -16,7 +16,7 @@ import com.nettoolkit.internal.http.HttpContentType;
  * <p><blockquote><pre>
  * gatekeeperClient.newReportCaptchaAttemptRequest()
  *     .visitId("5f3b7ffe-9740-4aa4-9c15-7fb3dc8df636")
- *     .captchaStatus(CaptchaStatus.SOLVED)
+ *     .status(CaptchaStatus.SOLVED)
  *     .send();
  * </pre></blockquote>
  */
