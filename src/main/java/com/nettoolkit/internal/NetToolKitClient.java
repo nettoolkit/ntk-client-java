@@ -5,6 +5,7 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.util.concurrent.TimeUnit;
 import java.net.URI;
+import java.security.SecureRandom;
 import javax.net.ssl.SSLContext;
 
 import java.net.http.HttpClient;
@@ -40,11 +41,13 @@ public abstract class NetToolKitClient {
         mstrApiKey = strApiKey;
         mbUseHttps = bUseHttps;
         try {
+            SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
+            sslContext.init(null, null, new SecureRandom());
             mHttpClient = HttpClient.newBuilder()
-                .sslContext(SSLContext.getInstance("TLSv1.2"))
+                .sslContext(sslContext)
                 .build();
-        } catch (NoSuchAlgorithmException nae) {
-            throw new IllegalStateException("HTTP client failed to initialize", nae);
+        } catch (Exception e) {
+            throw new IllegalStateException("HTTP client failed to initialize", e);
         }
     }
 
