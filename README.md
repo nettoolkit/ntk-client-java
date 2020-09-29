@@ -7,7 +7,7 @@ Official Java client for the [NetToolKit](https://www.nettoolkit.com) web API.
 
 ### Requirements
 
-Java 11 or later. If you'd like to use the client with an earlier Java version, [please let us know.](https://www.nettoolkit.com/contact).
+Java 11 or later. If you'd like to use the client with an earlier Java version, [please let us know.](https://www.nettoolkit.com/contact)
 
 ### Maven
 
