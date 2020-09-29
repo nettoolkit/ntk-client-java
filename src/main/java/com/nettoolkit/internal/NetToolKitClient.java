@@ -26,27 +26,19 @@ import com.nettoolkit.json.JSONArray;
 import com.nettoolkit.json.JSONException;
 
 public abstract class NetToolKitClient {
-    protected static final String BASE_URL = "api.nettoolkit.com";
-    protected static final String BASE_URL_DEV = "devapi.nettoolkit.com";
-    // Member variables
     protected String mstrApiKey;
     protected boolean mbUseHttps = true;
-    protected boolean mbDevMode = false;
-    protected int miDevPort = -1;
     protected int miTimeout = 3000;
     protected HttpClient mHttpClient;
-    // Instantiation
+
     private NetToolKitClient() {}
     public NetToolKitClient(String strApiKey) {
         this(strApiKey, true);
     }
+
     public NetToolKitClient(String strApiKey, boolean bUseHttps) {
         mstrApiKey = strApiKey;
         mbUseHttps = bUseHttps;
-        // TLSv1.3 is not well supported in java right now; turn it off in the mean time?
-        // System.setProperty("jdk.tls.client.protocols", "TLSv1.1,TLSv1.2");
-        // System.setProperty("https.protocols", "TLSv1.1,TLSv1.2");
-        // mHttpClient = HttpClient.newHttpClient();
         try {
             mHttpClient = HttpClient.newBuilder()
                 .sslContext(SSLContext.getInstance("TLSv1.2"))
@@ -55,28 +47,24 @@ public abstract class NetToolKitClient {
             throw new IllegalStateException("HTTP client failed to initialize", nae);
         }
     }
+
     // Getters/setters
     public String getApiKey() { return mstrApiKey; }
     public void setApiKey(String strApiKey) { mstrApiKey = strApiKey; }
     public boolean getUseHttps() { return mbUseHttps; }
     public void setUseHttps(boolean bUseHttps) { mbUseHttps = bUseHttps; }
-    public void setDevMode() { mbDevMode = true; }
-    public void setDevMode(int iPort) {
-        mbDevMode = true;
-        miDevPort = iPort;
-    }
     public int getTimeout() { return miTimeout; }
     public void setTimeout(int iTimeout) { miTimeout = iTimeout; }
 
     public String getBaseUrl() {
-        StringBuilder sb = new StringBuilder();
+        return getProtocol() + getHostname();
+    }
+
+    protected String getProtocol() {
         if (getUseHttps()) {
-            sb.append("https://");
-        } else {
-            sb.append("http://");
+            return "https://";
         }
-        sb.append(getHostname());
-        return sb.toString();
+        return "http://";
     }
 
     protected String getHostname() {
@@ -189,17 +177,22 @@ public abstract class NetToolKitClient {
 
     protected String buildUrl(String strPath) {
         StringBuilder sb = new StringBuilder();
-        if (mbUseHttps) sb.append("https://");
-        else sb.append("http://");
-        // "api" or "devapi"
-        if (mbDevMode) sb.append(BASE_URL_DEV);
-        else sb.append(BASE_URL);
-        // If port is not 80
-        if (miDevPort > -1)
-            sb.append(":").append(miDevPort);
+
+        // if (mbUseHttps) sb.append("https://");
+        // else sb.append("http://");
+        // // "api" or "devapi"
+        // if (mbDevMode) sb.append(BASE_URL_DEV);
+        // else sb.append(BASE_URL);
+        // // If port is not 80
+        // if (miDevPort > -1)
+        //     sb.append(":").append(miDevPort);
+
+        sb.append(getBaseUrl());
+
         sb.append(strPath);
         return sb.toString();
     }
+
     // ====================
     // = Response parsing =
     // ====================
