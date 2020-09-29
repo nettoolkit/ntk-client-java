@@ -1,2 +1,2 @@
 # ntk-client-java
-Java client to easily interact with NetToolKit services
+Java client for the NetToolKit web API.

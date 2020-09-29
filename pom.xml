@@ -4,16 +4,41 @@
     <groupId>com.nettoolkit</groupId>
     <artifactId>ntk-client-java</artifactId>
     <packaging>jar</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0-beta</version>
     <name>ntk-client-java</name>
-    <url>http://maven.apache.org</url>
+    <description>
+        Java library for the NetToolKit web API.
+    </description>
+    <url>https://github.com/nettoolkit/ntk-client-java</url>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
     <dependencies>
     </dependencies>
+
+    <developers>
+        <developer>
+            <name>Daniel Woznicki</name>
+            <email>danwoz@nettoolkit.com</email>
+            <organization>NetToolKit</organization>
+            <organizationUrl>https://www.nettoolkit.com/</organizationUrl>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>https://github.com/nettoolkit/ntk-client-java.git</url>
+    </scm>
 </project>
