@@ -9,7 +9,7 @@
     <description>
         Java library for the NetToolKit web API.
     </description>
-    <url>https://github.com/nettoolkit/ntk-client-java</url>
+    <url>https://www.nettoolkit.com</url>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
