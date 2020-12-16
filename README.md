@@ -48,3 +48,17 @@ public class Example {
 }
 ```
 
+## Developers
+
+#### Build jar file and javadoc
+
+```bash
+mvn clean package
+```
+
+#### Deploy to Maven Central
+
+```bash
+mvn clean deploy
+```
+
