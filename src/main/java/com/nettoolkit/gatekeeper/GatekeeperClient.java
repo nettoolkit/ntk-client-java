@@ -19,6 +19,7 @@ import com.nettoolkit.gatekeeper.GetPoliciesRequest;
 import com.nettoolkit.gatekeeper.GetVisitorGroupsRequest;
 import com.nettoolkit.gatekeeper.AddVisitorRequest;
 import com.nettoolkit.gatekeeper.RemoveVisitorRequest;
+import com.nettoolkit.gatekeeper.CountVisitsRequest;
 import com.nettoolkit.gatekeeper.CountVisitsForPolicyRequest;
 import com.nettoolkit.gatekeeper.ReportCaptchaAttemptRequest;
 import com.nettoolkit.internal.NetToolKitClient;
@@ -126,6 +127,15 @@ public class GatekeeperClient extends NetToolKitClient {
      */
     public GetPageGroupsRequest newGetPageGroupsRequest() {
         return new GetPageGroupsRequest(this);
+    }
+
+    /**
+     * Creates a new request to count visits. Call {@link com.nettoolkit.gatekeeper.CountVisitsRequest#send} to execute.
+     *
+     * @return a new count visits request object
+     */
+    public CountVisitsRequest newCountVisitsRequest() {
+        return new CountVisitsRequest(this);
     }
 
     /**
