@@ -15,7 +15,7 @@ Java 11 or later. If you'd like to use the client with an earlier Java version, 
 <dependency>
   <groupId>com.nettoolkit</groupId>
   <artifactId>ntk-client-java</artifactId>
-  <version>1.0.0-beta</version>
+  <version>1.1.0-beta</version>
 </dependency>
 ```
 
