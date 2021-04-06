@@ -14,6 +14,7 @@ public enum StatusCode {
     SERVICE_TIMEOUT(2003, "Connection to internal service timed out", 408),
     GEOCODE_SERVER_BUSY(2004, "Geocode server is busy", 503),
     SERVICE_UNAVAILABLE(2005, "Service is temporarily unavailable", 503),
+    BAD_GATEWAY(2006, "Got an invalid response from a remote host", 502),
     // 3000 - 3999: client meta error
     NOT_PERMITTED(3000, "Request not permitted", 403),
     INSUFFICIENT_CREDITS(3001, "Not enough credits to complete request", 400),
