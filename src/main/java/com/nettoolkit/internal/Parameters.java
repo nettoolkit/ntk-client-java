@@ -2,6 +2,7 @@ package com.nettoolkit.internal;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.time.OffsetDateTime;
 import java.util.Collection;
 import java.util.Map;
 import java.util.HashMap;
@@ -51,6 +52,10 @@ public class Parameters {
 
     public void put(String strKey, UUID uuid) {
         mmapParameters.put(strKey, uuid);
+    }
+
+    public void put(String strKey, OffsetDateTime time) {
+        mmapParameters.put(strKey, time.toInstant().toEpochMilli());
     }
 
     public String toWwwFormUrlencoded() throws ParsingException {

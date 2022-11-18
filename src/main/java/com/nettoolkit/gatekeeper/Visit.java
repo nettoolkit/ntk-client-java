@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.UUID;
 import com.nettoolkit.exception.ParsingException;
-import com.nettoolkit.json.JSONException;
 import com.nettoolkit.json.JSONObject;
 import com.nettoolkit.json.JSONArray;
 
@@ -22,7 +21,6 @@ public class Visit implements Serializable {
     private String mstrPage;
     private Long mlUserId;
     private String mstrUserAgent;
-    private Boolean mbIdentifiesAsBot;
     private String mstrCountryCode;
     private String mstrCountryName;
     private List<String> mlistTags = new ArrayList<>();
@@ -30,7 +28,6 @@ public class Visit implements Serializable {
     private String mstrPolicyName;
     private String mstrAuthorization;
     private String mstrReason;
-    private Integer miNumVisits;
     private Long mlCreated;
 
     protected Visit(JSONObject jsonVisit) throws ParsingException {
@@ -47,7 +44,6 @@ public class Visit implements Serializable {
             mlUserId = jsonVisit.optLong("user_id");
         }
         mstrUserAgent = jsonVisit.optString("user_agent", null);
-        mbIdentifiesAsBot = jsonVisit.optBoolean("identifies_as_bot");
         mstrCountryCode = jsonVisit.optString("country_code", null);
         mstrCountryName = jsonVisit.optString("country_name", null);
         List<String> listTags = new ArrayList<>();
@@ -72,9 +68,6 @@ public class Visit implements Serializable {
         mstrPolicyName = jsonVisit.optString("policy_name", null);
         mstrAuthorization = jsonVisit.optString("authorization", null);
         mstrReason = jsonVisit.optString("reason", null);
-        if (jsonVisit.has("num_visits")) {
-            miNumVisits = jsonVisit.optInt("num_visits");
-        }
         if (jsonVisit.has("created")) {
             mlCreated = jsonVisit.optLong("created");
         }

@@ -1,48 +1,21 @@
 package com.nettoolkit.gatekeeper;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.UUID;
-import java.util.concurrent.Future;
-import java.util.concurrent.Callable;
-
-import com.nettoolkit.exception.NetToolKitException;
-import com.nettoolkit.exception.BadArgumentException;
-import com.nettoolkit.exception.ParsingException;
-import com.nettoolkit.gatekeeper.AuthorizeVisitRequest;
-import com.nettoolkit.gatekeeper.GetPoliciesRequest;
-import com.nettoolkit.gatekeeper.GetVisitorGroupsRequest;
-import com.nettoolkit.gatekeeper.AddVisitorRequest;
-import com.nettoolkit.gatekeeper.RemoveVisitorRequest;
-import com.nettoolkit.gatekeeper.CountVisitsRequest;
-import com.nettoolkit.gatekeeper.CountVisitsForPolicyRequest;
-import com.nettoolkit.gatekeeper.ReportCaptchaAttemptRequest;
 import com.nettoolkit.internal.NetToolKitClient;
-import com.nettoolkit.internal.StatusCode;
-import com.nettoolkit.internal.Parameters;
-import com.nettoolkit.json.JSONObject;
-import com.nettoolkit.json.JSONArray;
-import com.nettoolkit.json.JSONException;
 
 /**
  * GatekeeperClient is the primary class for interacting with the Gatekeeper service web API.
  * Every endpoint in the web API should have a corresponding method in this class.
  * <p>Here's a typical usage of GatekeeperClient for visit authorization based on <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServlet.html">Java's HttpServlet</a>:
- * <p><blockquote><pre>
+ * <p><blockquote><pre>{@code
  * public class MyServlet extends HttpServlet {
  *     private GatekeeperClient gatekeeperClient;
  *
- *     &#064;Override
+ *     @Override
  *     public void init() throws ServletException {
  *         gatekeeperClient = new GatekeeperClient(NTK_API_KEY);
  *     }
  *
- *     &#064;Override
+ *     @Override
  *     protected void doGet(HttpServletRequest request, HttpServletResponse response)
  *             throws ServletException, IOException {
  *         StringBuffer url = request.getRequestURL();
@@ -57,7 +30,7 @@ import com.nettoolkit.json.JSONException;
  *         // Handle request based on authorization...
  *     }
  * }
- * <pre></blockquote>
+ * }<pre></blockquote>
  *
  * @see <a href="https://www.nettoolkit.com/docs/gatekeeper/api/overview">web API docs</a>
  */
@@ -155,36 +128,5 @@ public class GatekeeperClient extends NetToolKitClient {
     public ReportCaptchaAttemptRequest newReportCaptchaAttemptRequest() {
         return new ReportCaptchaAttemptRequest(this);
     }
-
-    /*
-    public String exportConfiguration() throws NetToolKitException {
-        String strResponse = sendGet("/v1/gatekeeper/configs");
-        return getFirstResult(strResponse).toString();
-    }
-
-    public void importConfiguration(String strConfigurationJson) 
-            throws NetToolKitException {
-        JSONObject jsonConfig;
-        try {
-            jsonConfig = new JSONObject(strConfigurationJson);
-        } catch (JSONException jsone) {
-            throw new BadArgumentException(jsone.getMessage(), strConfigurationJson);
-        }
-        String strResponse = sendPost("/v1/gatekeeper/configs", jsonConfig);
-        parseResponse(strResponse); // Checks for errors
-    }
-
-    public String simulateVisits(String strVisitsJson) throws NetToolKitException {
-        JSONObject jsonVisits;
-        try {
-            jsonVisits = new JSONObject().put("visits", new JSONArray(strVisitsJson));
-        } catch (JSONException jsone) {
-            throw new BadArgumentException(jsone.getMessage(), strVisitsJson);
-        }
-        String strResponse = sendPost("/v1/gatekeeper/visits/simulations", jsonVisits);
-        parseResponse(strResponse); // Checks for errors
-        return strResponse;
-    }
-    */
 }
 

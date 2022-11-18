@@ -1,7 +1,5 @@
 package com.nettoolkit.exception;
 
-import com.nettoolkit.exception.NetToolKitException;
-import com.nettoolkit.json.JSONObject;
 
 /**
  * ParsingException is thrown when the client encounters an error while parsing a request argument or response packet.

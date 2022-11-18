@@ -1,104 +1,64 @@
 package com.nettoolkit.dashboards;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.UUID;
-import java.util.concurrent.Future;
-import java.util.concurrent.Callable;
-
-import com.nettoolkit.exception.NetToolKitException;
-import com.nettoolkit.exception.ParsingException;
 import com.nettoolkit.internal.NetToolKitClient;
-import com.nettoolkit.internal.StatusCode;
-import com.nettoolkit.internal.Parameters;
-import com.nettoolkit.json.JSONObject;
-import com.nettoolkit.json.JSONArray;
-import com.nettoolkit.json.JSONException;
-
-import java.io.StringWriter;
-import java.io.PrintWriter;
 
 public class DashboardsClient extends NetToolKitClient {
-
+    /**
+     * Constructs a new GatekeeperClient which uses the given API key for requests.
+     *
+     * @param strApiKey The <a href="https://www.nettoolkit.com/docs/overview#authentication">NetToolKit API key</a> used to authenticate requests. All requests made by DashboardsClient will use this API key.
+     */
     public DashboardsClient(String strApiKey) {
         super(strApiKey);
     }
+
     public DashboardsClient(String strApiKey, boolean bUseHttps) {
         super(strApiKey, bUseHttps);
     }
-    public Channel createChannel(String strChannelName, String strType)
-            throws NetToolKitException {
-        return createChannel(strChannelName, null, strType, null);
+
+    /**
+     * Creates a new request to create a channel datum. Call {@link com.nettoolkit.dashboards.CreateChannelDatumRequest#send} to execute.
+     *
+     * @return a new create channel datum request object
+     */
+    public CreateChannelDatumRequest newCreateChannelDatumRequest() {
+        return new CreateChannelDatumRequest(this);
     }
-    public Channel createChannel(String strChannelName, String strDisplayName,
-                                 String strType, Double dDenominator)
-            throws NetToolKitException{
-        JSONObject jsonParameters;
-        try {
-            jsonParameters = new JSONObject();
-            jsonParameters.put("channel_name", strChannelName);
-            jsonParameters.put("display_name", strDisplayName);
-            jsonParameters.put("type", strType);
-            JSONObject jsonPreferences = new JSONObject();
-            jsonParameters.put("preferences", jsonPreferences);
-            jsonParameters.put("denominator", dDenominator);
-        } catch (JSONException jsone) {
-            throw new ParsingException(jsone, null);
-        }
-        String strResponse = sendPost("/v1/dashboards/channels", jsonParameters);
-        // parseResponse(strResponse); // Checks for errors
-        return new Channel(getFirstResult(strResponse));
+
+    /**
+     * Creates a new request to start a duration. Call {@link com.nettoolkit.dashboards.StartDurationRequest#send} to execute.
+     *
+     * @return a new start duration request object
+     */
+    public StartDurationRequest newStartDurationRequest() {
+        return new StartDurationRequest(this);
     }
-    public ChannelDatum createChannelData(String strChannelName, Double dValue,
-                                          String strAdditionalValues)
-            throws NetToolKitException {
-        return createChannelData(strChannelName, dValue, strAdditionalValues, "simple"); 
+
+    /**
+     * Creates a new request to create a duration milestone. Call {@link com.nettoolkit.dashboards.CreateMilestoneRequest#send} to execute.
+     *
+     * @return a new create duration milestone request object
+     */
+    public CreateMilestoneRequest newCreateMilestoneRequest() {
+        return new CreateMilestoneRequest(this);
     }
-    public ChannelDatum createChannelData(String strChannelName, Double dValue,
-                                          String strAdditionalValues, String strType)
-            throws NetToolKitException {
-        return createChannelData(strChannelName, dValue, strAdditionalValues, strType, (Double) null); 
+
+    /**
+     * Creates a new request to end a duration. Call {@link com.nettoolkit.dashboards.EndDurationRequest#send} to execute.
+     *
+     * @return a new end duration request object
+     */
+    public EndDurationRequest newEndDurationRequest() {
+        return new EndDurationRequest(this);
     }
-    @Deprecated
-    public ChannelDatum createChannelData(String strChannelName, Double dValue,
-                                          String strAdditionalValues, String strType,
-                                          String strUnit)
-            throws NetToolKitException {
-        return createChannelData(strChannelName, dValue, strAdditionalValues, strType); 
+
+    /**
+     * Creates a new request to create a Channel. Call {@link com.nettoolkit.dashboards.CreateChannel#send} to execute.
+     *
+     * @return a new create chanel request object
+     */
+    public CreateChannelRequest newCreateChannelRequest() {
+        return new CreateChannelRequest(this);
     }
-    public ChannelDatum createChannelData(String strChannelName,      Double dValue,
-                                          String strAdditionalValues, String strType,
-                                          Double dDenominator)
-            throws NetToolKitException {
-        return createChannelData(strChannelName, dValue, strAdditionalValues, strType, dDenominator, ""); 
-    }
-    public ChannelDatum createChannelData(String strChannelName,      Double dValue,
-                                          String strAdditionalValues, String strType,
-                                          Double dDenominator,        String strDisplayName)
-            throws NetToolKitException {
-        JSONObject jsonParameters;
-        try {
-            jsonParameters = new JSONObject();
-            jsonParameters.put("name", strChannelName);
-            jsonParameters.put("value", dValue);
-            jsonParameters.put("additional_values", strAdditionalValues);
-            jsonParameters.put("type", strType);
-            jsonParameters.put("denominator", dDenominator);
-            jsonParameters.put("display_name", strDisplayName);
-        } catch (JSONException jsone) {
-            throw new ParsingException(jsone, null);
-        }
-        String strResponse = sendPost("/v1/dashboards/channel-data", jsonParameters);
-        // parseResponse(strResponse); // Checks for errors
-        return new ChannelDatum(getFirstResult(strResponse));
-    }
-    public static String getStackTrace(Exception e) {
-        StringWriter sw = new StringWriter();
-        e.printStackTrace(new PrintWriter(sw));
-        return sw.toString();
-    }
+
 }

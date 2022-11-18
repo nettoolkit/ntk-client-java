@@ -1,12 +1,8 @@
 package com.nettoolkit.gatekeeper;
 
 import com.nettoolkit.exception.NetToolKitException;
-import com.nettoolkit.gatekeeper.Visit;
-import com.nettoolkit.gatekeeper.GatekeeperClient;
-import com.nettoolkit.internal.Parameters;
 import com.nettoolkit.internal.ApiResponse;
 import com.nettoolkit.internal.request.PostRequest;
-import com.nettoolkit.internal.http.HttpMethod;
 import com.nettoolkit.internal.http.HttpContentType;
 
 /**
