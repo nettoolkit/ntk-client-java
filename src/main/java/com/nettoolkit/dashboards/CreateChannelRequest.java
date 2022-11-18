@@ -182,75 +182,14 @@ public class CreateChannelRequest extends PostRequest {
     }
 
     /**
-     * Sets the channel notes.
-     *
-     * @param strNotes the notes
-     * @return this
-     */
-    public CreateChannelRequest value(String strNotes) {
-        getParameters().put("notes", strNotes);
-        return this;
-    }
-
-    /**
-     * Sets the datum additional values JSON.
-     *
-     * @param jsonAdditionalValues the additional values JSON
-     * @return this
-     */
-    public CreateChannelRequest additionalValues(JSONObject jsonAdditionalValues) {
-        getParameters().put("additional_values", jsonAdditionalValues);
-        return this;
-    }
-
-    /**
-     * Sets the datum additional values JSON string. This is an escape hatch for situations where
-     * it's inconvenient to use the provided {@link com.nettoolkit.json.JSONObject}. If you use
-     * this function, you must ensure that the given string represents a valid JSON object.
-     *
-     * @param strAdditionalValuesJson the additional values JSON string
-     * @return this
-     */
-    public CreateChannelRequest additionalValues(String strAdditionalValuesJson) {
-        getParameters().put("additional_values", strAdditionalValuesJson);
-        return this;
-    }
-
-    /**
-     * Sets the datum text blob. This can be useful for sending arbitrary text data.
-     *
-     * @param strTextBlob the text blob
-     * @return this
-     */
-    public CreateChannelRequest textBlob(String strTextBlob) {
-        getParameters().put("text_blob", strTextBlob);
-        return this;
-    }
-
-    /**
-     * Sets the datum text blob to a stack trace.
-     *
-     * @param throwable a throwable containing the stack trace to save
-     * @return this
-     */
-    public CreateChannelRequest stackTrace(Throwable throwable) {
-        StringBuilder sb = new StringBuilder();
-        for (StackTraceElement stackElement : throwable.getStackTrace()) {
-            sb.append(stackElement.toString());
-        }
-        getParameters().put("text_blob", sb.toString());
-        return this;
-    }
-
-    /**
      * Sends the request.
      *
-     * @return a channel datum object
+     * @return a channel object
      * @throws NetToolKitException
      */
-    public ChannelDatum send() throws NetToolKitException {
+    public Channel send() throws NetToolKitException {
         ApiResponse response = getClient().send(this);
-        return new ChannelDatum(response.getFirstResult());
+        return new Channel(response.getFirstResult());
     }
 }
 
