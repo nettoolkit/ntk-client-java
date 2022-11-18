@@ -2,10 +2,7 @@ package com.nettoolkit.gatekeeper;
 
 import java.util.UUID;
 import com.nettoolkit.exception.NetToolKitException;
-import com.nettoolkit.gatekeeper.GatekeeperClient;
-import com.nettoolkit.gatekeeper.CaptchaStatus;
 import com.nettoolkit.internal.request.PutRequest;
-import com.nettoolkit.internal.http.HttpMethod;
 import com.nettoolkit.internal.http.HttpContentType;
 
 /**
@@ -50,7 +47,7 @@ public class ReportCaptchaAttemptRequest extends PutRequest {
     /**
      * Sets the visit ID.
      *
-     * @param strVisitorGroupId the visit ID as a string
+     * @param strVisitId the visit ID as a string
      * @return this
      * @throws IllegalArgumentException if the string is not a valid UUID
      * @see ReportCaptchaAttemptRequest#visitId(UUID)

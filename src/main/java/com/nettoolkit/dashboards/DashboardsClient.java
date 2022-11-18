@@ -53,7 +53,7 @@ public class DashboardsClient extends NetToolKitClient {
     }
 
     /**
-     * Creates a new request to create a Channel. Call {@link com.nettoolkit.dashboards.CreateChannel#send} to execute.
+     * Creates a new request to create a Channel. Call {@link com.nettoolkit.dashboards.CreateChannelRequest#send} to execute.
      *
      * @return a new create chanel request object
      */

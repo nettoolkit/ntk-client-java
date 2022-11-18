@@ -3,24 +3,19 @@ package com.nettoolkit.gatekeeper;
 import java.util.UUID;
 import com.nettoolkit.exception.NetToolKitException;
 import com.nettoolkit.exception.BadArgumentException;
-import com.nettoolkit.gatekeeper.GatekeeperClient;
-import com.nettoolkit.internal.Parameters;
-import com.nettoolkit.internal.ApiResponse;
 import com.nettoolkit.internal.request.DeleteRequest;
-import com.nettoolkit.internal.http.HttpMethod;
-import com.nettoolkit.internal.http.HttpContentType;
 
 /**
  * Request to remove a visitor from a visitor group. Corresponds to endpoint <a href="https://www.nettoolkit.com/docs/gatekeeper/api/visitor-groups#remove-visitor-from-visitor-group"><code>DELETE /gatekeeper/visitor-groups/:visitor_group_id/visitors</code></a>.
  * Visitor group ID and visitor are required.
  * <p>If the visitor does not exist, the request succeeds without making any changes.
  * <p>Sample:
- * <p><blockquote><pre>
+ * <p><blockquote><pre>{@code
  * gatekeeperClient.newRemoveVisitorRequest()
  *     .visitorGroupId("b18f397b-d5f5-404a-b26c-00e295d3b3d3")
  *     .visitor("1.2.3.4")
  *     .send();
- * </blockquote></pre>
+ * }</pre></blockquote>
  */
 public class RemoveVisitorRequest extends DeleteRequest {
     private UUID mVisitorGroupId;

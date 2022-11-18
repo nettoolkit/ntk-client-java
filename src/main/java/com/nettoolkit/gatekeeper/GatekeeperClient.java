@@ -30,7 +30,7 @@ import com.nettoolkit.internal.NetToolKitClient;
  *         // Handle request based on authorization...
  *     }
  * }
- * }<pre></blockquote>
+ * }</pre></blockquote>
  *
  * @see <a href="https://www.nettoolkit.com/docs/gatekeeper/api/overview">web API docs</a>
  */
