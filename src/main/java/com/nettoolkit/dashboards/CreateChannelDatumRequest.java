@@ -1,6 +1,8 @@
 package com.nettoolkit.dashboards;
 
 import java.util.UUID;
+import java.io.StringWriter;
+import java.io.PrintWriter;
 import com.nettoolkit.exception.NetToolKitException;
 import com.nettoolkit.internal.ApiResponse;
 import com.nettoolkit.internal.request.PostRequest;
@@ -95,19 +97,15 @@ public class CreateChannelDatumRequest extends PostRequest {
      * @return this
      */
     public CreateChannelDatumRequest stackTrace(Throwable throwable) {
-        StringBuilder sb = new StringBuilder();
-        for (StackTraceElement stackElement : throwable.getStackTrace()) {
-            sb.append(stackElement.toString());
-        }
-        getParameters().put("text_blob", sb.toString());
+        getParameters().put("text_blob", getStackTrace(throwable));
         return this;
     }
 
-    // public static String getStackTrace(Exception e) {
-    //     StringWriter sw = new StringWriter();
-    //     e.printStackTrace(new PrintWriter(sw));
-    //     return sw.toString();
-    // }
+    private static String getStackTrace(Throwable throwable) {
+        StringWriter sw = new StringWriter();
+        throwable.printStackTrace(new PrintWriter(sw));
+        return sw.toString();
+    }
 
     /**
      * Sends the request.
