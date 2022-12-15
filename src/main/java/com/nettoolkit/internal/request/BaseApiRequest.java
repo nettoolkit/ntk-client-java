@@ -20,7 +20,7 @@ public abstract class BaseApiRequest {
 
     // Stubs
     protected abstract HttpMethod getHttpMethod();
-    // Ex. "/v1/gatekeeper/visits/authorization"
+    // E.g. "/v1/gatekeeper/visits/authorization"
     protected abstract String getPath();
     protected abstract String serializeParameters() throws ParsingException;
     
@@ -65,6 +65,12 @@ public abstract class BaseApiRequest {
 
     protected HttpRequest.Builder newHttpRequestBuilder() {
         return HttpRequest.newBuilder();
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{endpoint=" + getHttpMethod().name() + " " + getPath()
+            + ", parameters=" + getParameters().toJson() + "}";
     }
 }
 

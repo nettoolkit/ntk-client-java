@@ -6,15 +6,15 @@ import java.net.ProtocolException;
 import java.util.concurrent.TimeUnit;
 import java.net.URI;
 import java.security.SecureRandom;
+import java.time.OffsetDateTime;
 import javax.net.ssl.SSLContext;
-
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.net.http.HttpTimeoutException;
 import java.time.Duration;
 import java.security.NoSuchAlgorithmException;
 import java.security.KeyManagementException;
-
 import com.nettoolkit.exception.ApiConnectionException;
 import com.nettoolkit.exception.ApiException;
 import com.nettoolkit.exception.ParsingException;
@@ -32,7 +32,6 @@ public abstract class NetToolKitClient {
     protected int miTimeout = 3000;
     protected HttpClient mHttpClient;
 
-    private NetToolKitClient() {}
     public NetToolKitClient(String strApiKey) {
         this(strApiKey, true);
     }
@@ -79,8 +78,11 @@ public abstract class NetToolKitClient {
         HttpRequest httpRequest = request.toHttpRequest();
 
         HttpResponse<String> httpResponse;
+        OffsetDateTime requestStartTime = OffsetDateTime.now();
         try {
             httpResponse = mHttpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+        } catch (HttpTimeoutException e) {
+            throw new ApiConnectionException(e, requestStartTime, request);
         } catch (IOException | InterruptedException e) {
             throw new ApiConnectionException(e);
         }
