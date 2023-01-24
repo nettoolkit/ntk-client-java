@@ -4,7 +4,7 @@
     <groupId>com.nettoolkit</groupId>
     <artifactId>ntk-client-java</artifactId>
     <packaging>jar</packaging>
-    <version>1.2.5-beta</version>
+    <version>1.2.6-beta</version>
     <name>ntk-client-java</name>
     <description>
         Java library for the NetToolKit web API.

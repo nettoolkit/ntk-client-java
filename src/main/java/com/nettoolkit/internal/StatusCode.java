@@ -22,8 +22,10 @@ public enum StatusCode {
     OVER_QUOTA(3003, "Over request quota for resource", 403),
     ACCOUNT_DATABASE_REQUIRED(3004, "Account does not have an associated database", 403),
     VALIDATION_REQUIRED(3005, "User must be validated before continuing", 403),
-    PAYMENT_FAILURE(3006, "Payment was not accepted", 403),
     TOO_MANY_REQUESTS(3007, "The client is making too many requests", 429),
+    PAYMENT_FAILURE(3400, "Payment was not accepted", 403),
+    MISSING_PAYMENT_METHOD(3401, "The account needs a payment method to process this request", 403),
+    INVALID_PAYMENT_METHOD(3402, "The account payment method cannot be used to create charges", 403),
     // 4000 - 4999: client request error
     BAD_REQUEST(4000, "Invalid request", 400),
     INVALID_PARAMETER(4001, "Invalid parameter encountered in request", 400),
