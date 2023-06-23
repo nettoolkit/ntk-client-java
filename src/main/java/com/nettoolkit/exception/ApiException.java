@@ -1,6 +1,5 @@
 package com.nettoolkit.exception;
 
-import com.nettoolkit.exception.NetToolKitException;
 import com.nettoolkit.internal.StatusCode;
 
 /**

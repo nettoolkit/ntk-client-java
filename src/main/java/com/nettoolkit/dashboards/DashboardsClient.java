@@ -61,4 +61,21 @@ public class DashboardsClient extends NetToolKitClient {
         return new CreateChannelRequest(this);
     }
 
+    /**
+     * Creates a new request to create metrics. Call {@link com.nettoolkit.dashboards.CreateMetricsRequest#send} to execute.
+     *
+     * @return a new create metrics request object
+     */
+    public CreateMetricsRequest newCreateMetricsRequest() {
+        return new CreateMetricsRequest(this);
+    }
+
+    /**
+     * Creates a new request to create logs. Call {@link com.nettoolkit.dashboards.CreateLogsRequest#send} to execute.
+     *
+     * @return a new create metrics request object
+     */
+    public CreateLogsRequest newCreateLogsRequest() {
+        return new CreateLogsRequest(this);
+    }
 }

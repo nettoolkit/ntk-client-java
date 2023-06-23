@@ -1,9 +1,6 @@
 package com.nettoolkit.internal;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.util.concurrent.TimeUnit;
 import java.net.URI;
 import java.security.SecureRandom;
 import java.time.OffsetDateTime;
@@ -13,12 +10,10 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpTimeoutException;
 import java.time.Duration;
-import java.security.NoSuchAlgorithmException;
-import java.security.KeyManagementException;
 import com.nettoolkit.exception.ApiConnectionException;
 import com.nettoolkit.exception.ApiException;
+import com.nettoolkit.exception.ApiV2Exception;
 import com.nettoolkit.exception.ParsingException;
-import com.nettoolkit.internal.ApiResponse;
 import com.nettoolkit.internal.request.BaseApiRequest;
 import com.nettoolkit.internal.http.HttpMethod;
 import com.nettoolkit.internal.http.HttpContentType;
@@ -88,6 +83,23 @@ public abstract class NetToolKitClient {
         }
 
         return new ApiResponse(httpResponse);
+    }
+
+    public ApiV2Response sendV2(BaseApiRequest request)
+            throws ParsingException, ApiConnectionException, ApiV2Exception {
+        HttpRequest httpRequest = request.toHttpRequest();
+
+        HttpResponse<String> httpResponse;
+        OffsetDateTime requestStartTime = OffsetDateTime.now();
+        try {
+            httpResponse = mHttpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+        } catch (HttpTimeoutException e) {
+            throw new ApiConnectionException(e, requestStartTime, request);
+        } catch (IOException | InterruptedException e) {
+            throw new ApiConnectionException(e);
+        }
+
+        return new ApiV2Response(httpResponse);
     }
 
     // ========
