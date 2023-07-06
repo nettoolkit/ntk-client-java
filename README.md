@@ -58,6 +58,8 @@ mvn clean package
 
 #### Deploy to Maven Central
 
+Edit `pom.xml` and increment the version number. The client uses semantic versioning.
+
 ```bash
 mvn clean deploy
 ```
