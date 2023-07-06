@@ -39,8 +39,8 @@ public class DashboardsClient extends NetToolKitClient {
      *
      * @return a new create metrics request object
      */
-    public CreateGaugeRequest newCreateMetricsRequest() {
-        return new CreateGaugeRequest(this);
+    public CreateMetricsRequest newCreateMetricsRequest() {
+        return new CreateMetricsRequest(this);
     }
 
     /**
