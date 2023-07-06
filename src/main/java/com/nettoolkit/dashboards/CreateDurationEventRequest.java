@@ -115,6 +115,51 @@ public class CreateDurationEventRequest extends PostRequest {
     }
 
     /**
+     * Sets a string attribute.
+     *
+     * @param strKey
+     * @param strValue
+     * @return this
+     */
+    public CreateDurationEventRequest attribute(String strKey, String strValue) {
+        if (mAttributes == null) {
+            mAttributes = new AttributeMap();
+        }
+        mAttributes.set(strKey, strValue);
+        return this;
+    }
+
+    /**
+     * Sets a number attribute.
+     *
+     * @param strKey
+     * @param dValue
+     * @return this
+     */
+    public CreateDurationEventRequest attribute(String strKey, double dValue) {
+        if (mAttributes == null) {
+            mAttributes = new AttributeMap();
+        }
+        mAttributes.set(strKey, dValue);
+        return this;
+    }
+
+    /**
+     * Sets a boolean attribute.
+     *
+     * @param strKey
+     * @param bValue
+     * @return this
+     */
+    public CreateDurationEventRequest attribute(String strKey, boolean bValue) {
+        if (mAttributes == null) {
+            mAttributes = new AttributeMap();
+        }
+        mAttributes.set(strKey, bValue);
+        return this;
+    }
+
+    /**
      * Sends the request.
      *
      * @return the duration span this event was added to
