@@ -125,8 +125,8 @@ public class LogRecordInput {
          * @param time
          * @return this
          */
-        public Builder observedTime(OffsetDateTime observedTime) {
-            mObservedTime = observedTime;
+        public Builder observedTime(OffsetDateTime time) {
+            mObservedTime = time;
             return this;
         }
 
