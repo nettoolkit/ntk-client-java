@@ -15,6 +15,15 @@ public class DurationEvent {
     private OffsetDateTime mTime;
     private JSONObject mjsonAttributes;
 
+    /**
+     * Constructs a new duration event.
+     *
+     * @param id
+     * @param spanId
+     * @param strName
+     * @param time
+     * @param jsonAttributes
+     */
     public DurationEvent(
         UUID id,
         UUID spanId,
@@ -29,6 +38,13 @@ public class DurationEvent {
         mjsonAttributes = jsonAttributes;
     }
 
+    /**
+     * Constructs a new duration event from API response JSON.
+     *
+     * @param jsonEvent
+     * @return a new duration event
+     * @throws ResponseParsingException
+     */
     public static DurationEvent fromResponseJson(JSONObject jsonEvent)
             throws ResponseParsingException {
         UUID id;

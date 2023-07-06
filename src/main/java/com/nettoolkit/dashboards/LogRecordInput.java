@@ -19,6 +19,19 @@ public class LogRecordInput {
     private String mstrSignalName;
     private String mstrSignalDescription;
 
+    /**
+     * Constructs a new log record input.
+     *
+     * @param time
+     * @param observedTime
+     * @param severity
+     * @param strSeverityText
+     * @param strBody
+     * @param attributes
+     * @param signalId
+     * @param strSignalName
+     * @param strSignalDescription
+     */
     private LogRecordInput(
         OffsetDateTime time,
         OffsetDateTime observedTime,
@@ -41,8 +54,19 @@ public class LogRecordInput {
         mstrSignalDescription = strSignalDescription;
     }
 
+    /**
+     * Creates a new log record input builder.
+     *
+     * @return the builder
+     */
     public static Builder newBuilder() { return new Builder(); }
 
+    /**
+     * Creates a JSON representation of this object.
+     *
+     * @return this object in JSON format
+     * @throws JSONException
+     */
     public JSONObject toJson() throws JSONException {
         Long lObservedTimeMs = null;
         if (mObservedTime != null) {
@@ -84,56 +108,178 @@ public class LogRecordInput {
         private String mstrSignalName;
         private String mstrSignalDescription;
 
+        /**
+         * Sets the log time. Default is current time.
+         *
+         * @param time
+         * @return this
+         */
         public Builder time(OffsetDateTime time) {
             mTime = time;
             return this;
         }
 
+        /**
+         * Sets the log observed time. Default is current time.
+         *
+         * @param time
+         * @return this
+         */
         public Builder observedTime(OffsetDateTime observedTime) {
             mObservedTime = observedTime;
             return this;
         }
 
+        /**
+         * Sets the log severity.
+         *
+         * @param severity
+         * @return this
+         */
         public Builder severity(LogSeverity severity) {
             mSeverity = severity;
             return this;
         }
 
+        /**
+         * Sets the log severity text.
+         *
+         * @param strSeverityText
+         * @return this
+         */
         public Builder severityText(String strSeverityText) {
             mstrSeverityText = strSeverityText;
             return this;
         }
 
-        public Builder body(String strBody) {
-            mstrBody = strBody;
+        /**
+         * Sets the log body to the given message.
+         *
+         * @param strMessage
+         * @return this
+         */
+        public Builder body(String strMessage) {
+            mstrBody = strMessage;
             return this;
         }
 
+        /**
+         * Sets the log body to the given stack trace.
+         *
+         * @param throwable
+         * @return this
+         */
+        public Builder body(Throwable throwable) {
+            mstrBody = getStackTrace(throwable);
+            return this;
+        }
+
+        /**
+         * Sets the log body to the given message and stack trace.
+         *
+         * @param strMessage
+         * @param throwable
+         * @return
+         */
         public Builder body(String strMessage, Throwable throwable) {
             mstrBody = strMessage + "\n" + getStackTrace(throwable);
             return this;
         }
 
+        /**
+         * Sets the log attributes.
+         *
+         * @param attributes
+         * @return this
+         */
         public Builder attributes(AttributeMap attributes) {
             mAttributes = attributes;
             return this;
         }
 
+        /**
+         * Sets a string attribute.
+         *
+         * @param strKey
+         * @param strValue
+         * @return this
+         */
+        public Builder attribute(String strKey, String strValue) {
+            if (mAttributes == null) {
+                mAttributes = new AttributeMap();
+            }
+            mAttributes.set(strKey, strValue);
+            return this;
+        }
+
+        /**
+         * sets a number attributes.
+         *
+         * @param strKey
+         * @param dValue
+         * @return this
+         */
+        public Builder attribute(String strKey, double dValue) {
+            if (mAttributes == null) {
+                mAttributes = new AttributeMap();
+            }
+            mAttributes.set(strKey, dValue);
+            return this;
+        }
+
+        /**
+         * Sets a boolean attribute.
+         *
+         * @param strKey
+         * @param bValue
+         * @return this
+         */
+        public Builder attribute(String strKey, boolean bValue) {
+            if (mAttributes == null) {
+                mAttributes = new AttributeMap();
+            }
+            mAttributes.set(strKey, bValue);
+            return this;
+        }
+
+        /**
+         * Sets the signal for log by ID.
+         *
+         * @param signalId
+         * @return this
+         */
         public Builder signalId(UUID signalId) {
             mSignalId = signalId;
             return this;
         }
 
+        /**
+         * Sets the signal for log by name.
+         *
+         * @param strSignalName
+         * @return this
+         */
         public Builder signalName(String strSignalName) {
             mstrSignalName = strSignalName;
             return this;
         }
 
+        /**
+         * Sets the signal description for log.
+         *
+         * @param strSignalDescription
+         * @return this
+         */
         public Builder signalDescription(String strSignalDescription) {
             mstrSignalDescription = strSignalDescription;
             return this;
         }
 
+        /**
+         * Build a log record input from parameters.
+         *
+         * @return a new log record input
+         */
         public LogRecordInput build() {
             return new LogRecordInput(
                 mTime,

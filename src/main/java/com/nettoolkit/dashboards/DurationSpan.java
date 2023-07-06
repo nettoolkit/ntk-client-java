@@ -6,7 +6,10 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional; import java.util.UUID; import com.nettoolkit.exception.ResponseParsingException; import com.nettoolkit.json.JSONArray;
+import java.util.Optional;
+import java.util.UUID;
+import com.nettoolkit.exception.ResponseParsingException;
+import com.nettoolkit.json.JSONArray;
 import com.nettoolkit.json.JSONObject;
 
 public class DurationSpan {
@@ -15,8 +18,18 @@ public class DurationSpan {
     private OffsetDateTime mStartTime;
     private OffsetDateTime mEndTime; // might be null
     private JSONObject mjsonAttributes;
-    private List<DurationEvent> mlistEvents; // might be null
+    private List<DurationEvent> mlistEvents;
 
+    /**
+     * Constructs a new duration span.
+     *
+     * @param id
+     * @param signalId
+     * @param startTime
+     * @param endTime
+     * @param jsonAttributes
+     * @param listEvents
+     */
     public DurationSpan(
         UUID id,
         UUID signalId,
@@ -33,6 +46,13 @@ public class DurationSpan {
         mlistEvents = listEvents;
     }
 
+    /**
+     * Constructs a new duration span from API response JSON.
+     *
+     * @param jsonSpan
+     * @return a new duration span
+     * @throws ResponseParsingException
+     */
     public static DurationSpan fromResponseJson(JSONObject jsonSpan)
             throws ResponseParsingException {
         UUID id;
