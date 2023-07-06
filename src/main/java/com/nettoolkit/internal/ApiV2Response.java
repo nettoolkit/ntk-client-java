@@ -2,6 +2,7 @@ package com.nettoolkit.internal;
 
 import java.net.http.HttpResponse;
 import com.nettoolkit.exception.ParsingException;
+import com.nettoolkit.exception.ResponseParsingException;
 import com.nettoolkit.exception.ApiV2Exception;
 import com.nettoolkit.json.JSONObject;
 import com.nettoolkit.json.JSONArray;
@@ -20,6 +21,50 @@ public class ApiV2Response {
     public String getRawResponseBody() { return mstrResponseBody; }
 
     public JSONObject getJsonBody() { return mjsonResponseBody; }
+
+    public JSONObject getData() throws ResponseParsingException {
+        try {
+            return mjsonResponseBody.getJSONObject("data");
+        } catch (Exception e) {
+            throw ResponseParsingException.expectedJsonObject(
+                "body",
+                "data",
+                mjsonResponseBody.opt("data"),
+                e,
+                mjsonResponseBody
+            );
+        }
+    }
+
+    public JSONObject getDataJsonObject(String strKey) throws ResponseParsingException {
+        JSONObject jsonData = getData();
+        try {
+            return jsonData.getJSONObject(strKey);
+        } catch (Exception e) {
+            throw ResponseParsingException.expectedJsonObject(
+                "data",
+                strKey,
+                jsonData.opt(strKey),
+                e,
+                jsonData
+            );
+        }
+    }
+
+    public JSONArray getDataJsonArray(String strKey) throws ResponseParsingException {
+        JSONObject jsonData = getData();
+        try {
+            return jsonData.getJSONArray(strKey);
+        } catch (Exception e) {
+            throw ResponseParsingException.expectedJsonArray(
+                "data",
+                strKey,
+                jsonData.opt(strKey),
+                e,
+                jsonData
+            );
+        }
+    }
 
     // Helpers
     protected static JSONObject parseBody(String strResponseJson)

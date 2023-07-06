@@ -8,10 +8,10 @@ import com.nettoolkit.internal.request.PostRequest;
 import com.nettoolkit.json.JSONObject;
 import com.nettoolkit.internal.http.HttpContentType;
 
-public class EndDurationRequest extends PostRequest {
+public class CreateDurationEventRequest extends PostRequest {
     private AttributeMap mAttributes;
 
-    public EndDurationRequest(DashboardsClient client) {
+    public CreateDurationEventRequest(DashboardsClient client) {
         super(client);
     }
 
@@ -19,7 +19,7 @@ public class EndDurationRequest extends PostRequest {
     protected HttpContentType getContentType() { return HttpContentType.JSON; }
 
     @Override
-    protected String getPath() { return "/v2/dashboards/end-duration"; }
+    protected String getPath() { return "/v2/dashboards/create-duration-event"; }
 
     /**
      * Sets the signal for duration by ID.
@@ -28,7 +28,7 @@ public class EndDurationRequest extends PostRequest {
      * @param signalId
      * @return this
      */
-    public EndDurationRequest signalId(UUID signalId) {
+    public CreateDurationEventRequest signalId(UUID signalId) {
         getParameters().put("signal_id", signalId);
         return this;
     }
@@ -40,7 +40,7 @@ public class EndDurationRequest extends PostRequest {
      * @param strSignalName
      * @return this
      */
-    public EndDurationRequest signalName(String strSignalName) {
+    public CreateDurationEventRequest signalName(String strSignalName) {
         getParameters().put("signal_name", strSignalName);
         return this;
     }
@@ -51,53 +51,65 @@ public class EndDurationRequest extends PostRequest {
      * @param strSignalDescription
      * @return this
      */
-    public EndDurationRequest signalDescription(String strSignalDescription) {
+    public CreateDurationEventRequest signalDescription(String strSignalDescription) {
         getParameters().put("signal_description", strSignalDescription);
         return this;
     }
 
     /**
-     * Sets the span for this duration span by ID.
+     * Sets the span for this event by ID.
      * <em>At least one of span ID, signal ID, or signal name is required.</em>
      *
      * @param spanId
      * @return this
      */
-    public EndDurationRequest spanId(UUID spanId) {
+    public CreateDurationEventRequest spanId(UUID spanId) {
         getParameters().put("span_id", spanId);
         return this;
     }
 
     /**
-     * Sets the end time. By default, uses current time.
+     * Sets the event name.
+     * <em>required</em>
+     *
+     * @param strName
+     * @return this
+     */
+    public CreateDurationEventRequest name(String strName) {
+        getParameters().put("name", strName);
+        return this;
+    }
+
+    /**
+     * Sets the event time. By default, uses current time.
      *
      * @param time
      * @return this
      */
-    public EndDurationRequest time(OffsetDateTime time) {
+    public CreateDurationEventRequest time(OffsetDateTime time) {
         getParameters().put("time", time);
         return this;
     }
 
     /**
-     * Sets the duration span failure status. If true, indicates that this span did not complete
+     * Sets the event failure status. If true, indicates that this event did not complete
      * successfully.
      *
      * @param bIsFailure
      * @return this
      */
-    public EndDurationRequest failure(boolean bIsFailure) {
+    public CreateDurationEventRequest failure(boolean bIsFailure) {
         getParameters().put("failure", bIsFailure);
         return this;
     }
 
     /**
-     * Sets the duration span ending attributes.
+     * Sets the event attributes.
      *
      * @param attributes
      * @return this
      */
-    public EndDurationRequest attributes(AttributeMap attributes) {
+    public CreateDurationEventRequest attributes(AttributeMap attributes) {
         mAttributes = attributes;
         return this;
     }
@@ -105,7 +117,7 @@ public class EndDurationRequest extends PostRequest {
     /**
      * Sends the request.
      *
-     * @return the duration that was ended
+     * @return the duration span this event was added to
      * @throws NetToolKitException
      */
     public DurationSpan send() throws NetToolKitException {

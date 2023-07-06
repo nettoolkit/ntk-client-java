@@ -12,12 +12,12 @@ public class ParsingException extends NetToolKitException {
     }
 
     public ParsingException(String strMessage, Object source) {
-        super(strMessage + " (error source = " + source + ")");
+        super(strMessage + " source = " + source);
         mSource = source;
     }
 
     public ParsingException(String strMessage, Throwable cause, Object source) {
-        super(strMessage + " (error source = " + source + ")", cause);
+        super(strMessage + " source = " + source, cause);
         mSource = source;
     }
 

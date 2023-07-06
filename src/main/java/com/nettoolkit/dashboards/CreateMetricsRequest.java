@@ -65,7 +65,7 @@ public class CreateMetricsRequest extends PostRequest {
      * Time defaults to now.
      * <em>at least one metric is required</em>
      *
-     * @param value
+     * @param dValue
      * @return this
      */
     public CreateMetricsRequest addGauge(double dValue) {
@@ -144,7 +144,6 @@ public class CreateMetricsRequest extends PostRequest {
     /**
      * Sends the request.
      *
-     * @return void
      * @throws NetToolKitException
      */
     public void send() throws NetToolKitException {

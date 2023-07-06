@@ -3,91 +3,97 @@ package com.nettoolkit.dashboards;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 import com.nettoolkit.exception.NetToolKitException;
-import com.nettoolkit.internal.ApiResponse;
+import com.nettoolkit.internal.ApiV2Response;
 import com.nettoolkit.internal.request.PostRequest;
 import com.nettoolkit.json.JSONObject;
 import com.nettoolkit.internal.http.HttpContentType;
 
 public class StartDurationRequest extends PostRequest {
+    private AttributeMap mAttributes;
+
     public StartDurationRequest(DashboardsClient client) {
         super(client);
-        getParameters().put("name", "start");
     }
 
     @Override
     protected HttpContentType getContentType() { return HttpContentType.JSON; }
 
     @Override
-    protected String getPath() { return "/v1/dashboards/durations"; }
+    protected String getPath() { return "/v2/dashboards/start-duration"; }
 
     /**
-     * Sets the channel for this duration by name.
-     * <em>required unless channel ID is given</em>
+     * Sets the signal for duration by ID.
+     * <em>At least one of span ID, signal ID, or signal name is required.</em>
      *
-     * @param strChannelName the channel name
+     * @param signalId
      * @return this
      */
-    public StartDurationRequest channelName(String strChannelName) {
-        getParameters().put("channel_name", strChannelName);
+    public StartDurationRequest signalId(UUID signalId) {
+        getParameters().put("signal_id", signalId);
         return this;
     }
 
     /**
-     * Sets the channel for this duration by ID.
-     * <em>required unless channel name is given</em>
+     * Sets the signal for duration by name.
+     * <em>At least one of span ID, signal ID, or signal name is required.</em>
      *
-     * @param channelId the channel ID
+     * @param strSignalName
      * @return this
      */
-    public StartDurationRequest channelId(UUID channelId) {
-        getParameters().put("channel_id", channelId);
+    public StartDurationRequest signalName(String strSignalName) {
+        getParameters().put("signal_name", strSignalName);
         return this;
     }
 
     /**
-     * Sets the duration start time. By default, uses current time.
+     * Sets the signal description for duration.
      *
-     * @param timestamp the start time
+     * @param strSignalDescription
      * @return this
      */
-    public StartDurationRequest timestamp(OffsetDateTime timestamp) {
-        getParameters().put("timestamp", timestamp);
+    public StartDurationRequest signalDescription(String strSignalDescription) {
+        getParameters().put("signal_description", strSignalDescription);
         return this;
     }
 
     /**
-     * Sets the duration start additional values JSON.
+     * Sets the start time. By default, uses current time.
      *
-     * @param jsonAdditionalValues the additional values JSON
+     * @param time
      * @return this
      */
-    public StartDurationRequest additionalValues(JSONObject jsonAdditionalValues) {
-        getParameters().put("additional_values", jsonAdditionalValues);
+    public StartDurationRequest time(OffsetDateTime time) {
+        getParameters().put("time", time);
         return this;
     }
 
     /**
-     * Sets the duration start additional values JSON string. This is an escape hatch for situations 
-     * where it's inconvenient to use the provided {@link com.nettoolkit.json.JSONObject}. If you use
-     * this function, you must ensure that the given string represents a valid JSON object.
+     * Sets the duration span attributes.
      *
-     * @param strAdditionalValuesJson the additional values JSON string
+     * @param attributes
      * @return this
      */
-    public StartDurationRequest additionalValues(String strAdditionalValuesJson) {
-        getParameters().put("additional_values", strAdditionalValuesJson);
+    public StartDurationRequest attributes(AttributeMap attributes) {
+        mAttributes = attributes;
         return this;
     }
 
     /**
      * Sends the request.
      *
-     * @return a duration object
+     * @return the new duration span
      * @throws NetToolKitException
      */
-    public Duration send() throws NetToolKitException {
-        ApiResponse response = getClient().send(this);
-        return new Duration(response.getFirstResult());
+    public DurationSpan send() throws NetToolKitException {
+        JSONObject jsonAttributes = null;
+        if (mAttributes != null) {
+            jsonAttributes = mAttributes.toJson();
+        }
+        getParameters().put("attributes", jsonAttributes);
+        ApiV2Response response = getClient().sendV2(this);
+        return DurationSpan.fromResponseJson(
+            response.getDataJsonObject("duration_span")
+        );
     }
 }
 

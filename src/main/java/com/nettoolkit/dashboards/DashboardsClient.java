@@ -26,33 +26,6 @@ public class DashboardsClient extends NetToolKitClient {
     }
 
     /**
-     * Creates a new request to start a duration. Call {@link com.nettoolkit.dashboards.StartDurationRequest#send} to execute.
-     *
-     * @return a new start duration request object
-     */
-    public StartDurationRequest newStartDurationRequest() {
-        return new StartDurationRequest(this);
-    }
-
-    /**
-     * Creates a new request to create a duration milestone. Call {@link com.nettoolkit.dashboards.CreateMilestoneRequest#send} to execute.
-     *
-     * @return a new create duration milestone request object
-     */
-    public CreateMilestoneRequest newCreateMilestoneRequest() {
-        return new CreateMilestoneRequest(this);
-    }
-
-    /**
-     * Creates a new request to end a duration. Call {@link com.nettoolkit.dashboards.EndDurationRequest#send} to execute.
-     *
-     * @return a new end duration request object
-     */
-    public EndDurationRequest newEndDurationRequest() {
-        return new EndDurationRequest(this);
-    }
-
-    /**
      * Creates a new request to create a Channel. Call {@link com.nettoolkit.dashboards.CreateChannelRequest#send} to execute.
      *
      * @return a new create chanel request object
@@ -62,12 +35,21 @@ public class DashboardsClient extends NetToolKitClient {
     }
 
     /**
-     * Creates a new request to create metrics. Call {@link com.nettoolkit.dashboards.CreateMetricsRequest#send} to execute.
+     * Creates a new request to create metrics. Call {@link com.nettoolkit.dashboards.CreateGaugeRequest#send} to execute.
      *
      * @return a new create metrics request object
      */
-    public CreateMetricsRequest newCreateMetricsRequest() {
-        return new CreateMetricsRequest(this);
+    public CreateGaugeRequest newCreateMetricsRequest() {
+        return new CreateGaugeRequest(this);
+    }
+
+    /**
+     * Creates a new request to create a gauge. Call {@link com.nettoolkit.dashboards.CreateGaugeRequest#send} to execute.
+     *
+     * @return a new create gauge request object
+     */
+    public CreateGaugeRequest newCreateGaugeRequest() {
+        return new CreateGaugeRequest(this);
     }
 
     /**
@@ -78,4 +60,41 @@ public class DashboardsClient extends NetToolKitClient {
     public CreateLogsRequest newCreateLogsRequest() {
         return new CreateLogsRequest(this);
     }
+
+    /**
+     * Creates a new request to create a log. Call {@link com.nettoolkit.dashboards.CreateLogRequest#send} to execute.
+     *
+     * @return a new create log request object
+     */
+    public CreateLogRequest newCreateLogRequest() {
+        return new CreateLogRequest(this);
+    }
+
+    /**
+     * Creates a new request to start a duration. Call {@link com.nettoolkit.dashboards.StartDurationRequest#send} to execute.
+     *
+     * @return a new start duration request object
+     */
+    public StartDurationRequest newStartDurationRequest() {
+        return new StartDurationRequest(this);
+    }
+
+    /**
+     * Creates a new request to create a duration event. Call {@link com.nettoolkit.dashboards.CreateDurationEventRequest#send} to execute.
+     *
+     * @return a new create duration event request object
+     */
+    public CreateDurationEventRequest newCreateDurationEventRequest() {
+        return new CreateDurationEventRequest(this);
+    }
+
+    /**
+     * Creates a new request to end a duration. Call {@link com.nettoolkit.dashboards.EndDurationRequest#send} to execute.
+     *
+     * @return a new end duration request object
+     */
+    public EndDurationRequest newEndDurationRequest() {
+        return new EndDurationRequest(this);
+    }
 }
+

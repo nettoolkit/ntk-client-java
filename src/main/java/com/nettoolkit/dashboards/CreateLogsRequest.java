@@ -77,7 +77,8 @@ public class CreateLogsRequest extends PostRequest {
      * Time defaults to now. Log body includes msessage and throwable stack trace.
      * <em>at least one log is required</em>
      *
-     * @param strLogBody
+     * @param strMessage
+     * @param throwable
      * @return this
      */
     public CreateLogsRequest addLog(String strMessage, Throwable throwable) {
@@ -130,7 +131,6 @@ public class CreateLogsRequest extends PostRequest {
     /**
      * Sends the request.
      *
-     * @return void
      * @throws NetToolKitException
      */
     public void send() throws NetToolKitException {
