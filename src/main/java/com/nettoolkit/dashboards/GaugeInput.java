@@ -1,7 +1,6 @@
 package com.nettoolkit.dashboards;
 
 import java.time.OffsetDateTime;
-import java.util.Objects;
 import java.util.UUID;
 import com.nettoolkit.json.JSONException;
 import com.nettoolkit.json.JSONObject;
@@ -32,7 +31,7 @@ public class GaugeInput {
         String strSignalName,
         String strSignalDescription
     ) {
-        mTime = Objects.requireNonNull(time);
+        mTime = time;
         mdValue = dValue;
         mAttributes = attributes;
         mSignalId = signalId;
@@ -54,12 +53,16 @@ public class GaugeInput {
      * @throws JSONException
      */
     public JSONObject toJson() throws JSONException {
+        Long lTime = null;
+        if (mTime != null) {
+            lTime = mTime.toInstant().toEpochMilli();
+        }
         JSONObject jsonAttributes = null;
         if (mAttributes != null) {
             jsonAttributes = mAttributes.toJson();
         }
         return new JSONObject()
-            .put("time", mTime.toInstant().toEpochMilli())
+            .put("time", lTime)
             .put("value", mdValue)
             .put("attributes", jsonAttributes)
             .put("signal_id", mSignalId)

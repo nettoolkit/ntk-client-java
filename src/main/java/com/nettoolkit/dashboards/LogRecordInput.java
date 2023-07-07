@@ -3,7 +3,6 @@ package com.nettoolkit.dashboards;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.time.OffsetDateTime;
-import java.util.Objects;
 import java.util.UUID;
 import com.nettoolkit.json.JSONException;
 import com.nettoolkit.json.JSONObject;
@@ -43,7 +42,7 @@ public class LogRecordInput {
         String strSignalName,
         String strSignalDescription
     ) {
-        mTime = Objects.requireNonNull(time);
+        mTime = time;
         mObservedTime = observedTime;
         mSeverity = severity;
         mstrSeverityText = strSeverityText;
@@ -68,6 +67,10 @@ public class LogRecordInput {
      * @throws JSONException
      */
     public JSONObject toJson() throws JSONException {
+        Long lTime = null;
+        if (mTime != null) {
+            lTime = mTime.toInstant().toEpochMilli();
+        }
         Long lObservedTimeMs = null;
         if (mObservedTime != null) {
             lObservedTimeMs = mObservedTime.toInstant().toEpochMilli();
@@ -81,7 +84,7 @@ public class LogRecordInput {
             jsonAttributes = mAttributes.toJson();
         }
         return new JSONObject()
-            .put("time", mTime.toInstant().toEpochMilli())
+            .put("time", lTime)
             .put("observed_time", lObservedTimeMs)
             .put("severity", iSeverity)
             .put("severity_text", mstrSeverityText)
