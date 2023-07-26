@@ -13,6 +13,8 @@ public enum Precision {
         mstrStringValue = strStringValue;
     }
 
+    public String asStringValue() { return mstrStringValue; }
+
     public static Precision fromString(String strValue) {
         // Attempt to parse value as a known string value (e.g. "rooftop", "geometry_centroid").
         for (Precision precision : values()) {

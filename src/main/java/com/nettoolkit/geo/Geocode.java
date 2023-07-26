@@ -1,5 +1,6 @@
 package com.nettoolkit.geo;
 
+import java.util.ArrayList;
 import com.nettoolkit.json.JSONException;
 import com.nettoolkit.json.JSONObject;
 
@@ -15,6 +16,8 @@ public class Geocode {
     private String mstrCounty;
     private String mstrState;
     private String mstrStateCode;
+    private String mstrCountry;
+    private String mstrCountryCode;
     private Provider mProvider;
     private Precision mPrecision; 
     private Double mdLatitude;
@@ -33,6 +36,8 @@ public class Geocode {
         String strCounty,
         String strState,
         String strStateCode,
+        String strCountry,
+        String strCountryCode,
         Provider provider,
         Precision precision,
         Double dLatitude,
@@ -50,6 +55,8 @@ public class Geocode {
         mstrCounty = strCounty;
         mstrState = strState;
         mstrStateCode = strStateCode;
+        mstrCountry = strCountry;
+        mstrCountryCode = strCountryCode;
         mProvider = provider;
         mPrecision = precision;
         mdLatitude = dLatitude;
@@ -70,6 +77,8 @@ public class Geocode {
             jsonGeocode.optString("county", null),
             jsonGeocode.optString("state", null),
             jsonGeocode.optString("state_code", null),
+            jsonGeocode.optString("country", null),
+            jsonGeocode.optString("country_code", null),
             Provider.fromString(jsonGeocode.optString("provider", null)),
             Precision.fromString(jsonGeocode.optString("precision", null)),
             jsonGeocode.has("latitude") ? jsonGeocode.getDouble("latitude") : null,
@@ -100,6 +109,10 @@ public class Geocode {
 
     public String getStateCode() { return mstrStateCode; }
 
+    public String getCountry() { return mstrCountry; }
+
+    public String getCountryCode() { return mstrCountryCode; }
+
     public Provider getProvider() { return mProvider; }
 
     public Precision getPrecision() { return mPrecision; }
@@ -109,5 +122,58 @@ public class Geocode {
     public double getLongitude() { return mdLongitude; }
 
     public JSONObject getOriginalJson() { return mjsonOriginal; }
+
+    @Override
+    public String toString() {
+        ArrayList<String> listTokens = new ArrayList<>();
+        if (mstrAddress != null) {
+            listTokens.add("address=" + mstrAddress);
+        }
+        if (mstrHouseNumber != null) {
+            listTokens.add("house_number=" + mstrHouseNumber);
+        }
+        if (mstrStreet != null) {
+            listTokens.add("street=" + mstrStreet);
+        }
+        if (mstrStreetName != null) {
+            listTokens.add("street_name=" + mstrStreetName);
+        }
+        if (mstrStreetNumber != null) {
+            listTokens.add("street_number=" + mstrStreetNumber);
+        }
+        if (mstrStreetType != null) {
+            listTokens.add("street_type=" + mstrStreetType);
+        }
+        if (mstrCity != null) {
+            listTokens.add("city=" + mstrCity);
+        }
+        if (mstrPostalCode != null) {
+            listTokens.add("postal_code=" + mstrPostalCode);
+        }
+        if (mstrCounty != null) {
+            listTokens.add("county=" + mstrCounty);
+        }
+        if (mstrState != null) {
+            listTokens.add("state=" + mstrState);
+        }
+        if (mstrStateCode != null) {
+            listTokens.add("state_code=" + mstrStateCode);
+        }
+        if (mProvider != null) {
+            listTokens.add("provider=" + mProvider.asStringValue());
+        }
+        if (mPrecision != null) {
+            listTokens.add("precision=" + mPrecision.asStringValue());
+        }
+        if (mdLatitude != null) {
+            listTokens.add("latitude=" + mdLatitude);
+        }
+        if (mdLongitude != null) {
+            listTokens.add("longitude=" + mdLongitude);
+        }
+        return getClass().getSimpleName() + "{"
+            + String.join(", ", listTokens)
+            + "}";
+    }
 }
 
