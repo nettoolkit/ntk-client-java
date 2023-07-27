@@ -21,7 +21,8 @@ public class ApiV2Exception extends NetToolKitException {
     protected static String buildMessage(List<ApiError> listErrors) {
         StringBuilder sb = new StringBuilder("Encountered one or more errors from the API.");
         for (ApiError error : listErrors) {
-            sb.append("\n- " + getReadableStatus(error.miCode) + ": " + error.mstrMessage);
+            sb.append("\n- " + getReadableStatus(error.getStatusCode().toInt()) + ": "
+                + error.getMessage());
         }
         return sb.toString();
     }
@@ -40,12 +41,20 @@ public class ApiV2Exception extends NetToolKitException {
     }
 
     public static class ApiError {
-        private int miCode;
+        private StatusCode mStatusCode;
         private String mstrMessage;
 
         public ApiError(int iCode, String strMessage) {
-            miCode = iCode;
+            mStatusCode = StatusCode.fromInt(iCode);
             mstrMessage = strMessage;
+        }
+
+        public StatusCode getStatusCode() {
+            return mStatusCode;
+        }
+
+        public String getMessage() {
+            return mstrMessage;
         }
 
         public static ApiError fromJson(JSONObject jsonError) throws JSONException {

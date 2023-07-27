@@ -7,11 +7,18 @@ import com.nettoolkit.internal.StatusCode;
  * See <a href="https://www.nettoolkit.com/docs/overview#response">the web API response</a> docs for a list of possible error codes.
  */
 public class ApiException extends NetToolKitException {
+    private StatusCode mStatusCode;
+
     public ApiException(int iCode, String strMessage) {
-        super(getStatusCode(iCode) + ": " + strMessage);
+        super(getReadableStatusCode(iCode) + ": " + strMessage);
+        mStatusCode = StatusCode.fromInt(iCode);
     }
 
-    protected static String getStatusCode(int iCode) {
+    public StatusCode getStatusCode() {
+        return mStatusCode;
+    }
+
+    protected static String getReadableStatusCode(int iCode) {
         String strStatusCode;
         StatusCode statusCode = StatusCode.fromInt(iCode);
 
