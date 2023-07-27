@@ -8,11 +8,11 @@ import java.util.Set;
 import java.util.Map;
 import java.util.HashMap;
 
+import com.nettoolkit.api.StatusCode;
 import com.nettoolkit.exception.NetToolKitException;
 import com.nettoolkit.exception.BadArgumentException;
 import com.nettoolkit.exception.ParsingException;
 import com.nettoolkit.internal.NetToolKitClient;
-import com.nettoolkit.internal.StatusCode;
 import com.nettoolkit.internal.Parameters;
 import com.nettoolkit.json.JSONObject;
 import com.nettoolkit.json.JSONArray;

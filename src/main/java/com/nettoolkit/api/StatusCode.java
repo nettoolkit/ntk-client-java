@@ -1,4 +1,4 @@
-package com.nettoolkit.internal;
+package com.nettoolkit.api;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -38,23 +38,28 @@ public enum StatusCode {
     RESOURCE_EXPIRED(5003, "Resource has expired", 404), 
     UNKNOWN_ROUTE(5500, "No matching route found", 404);
 
-    protected static Map<Integer, StatusCode> mmapCodes = new HashMap<>();
+    private static Map<Integer, StatusCode> mmapCodes = new HashMap<>();
     static {
         for (StatusCode code : StatusCode.values()) {
             mmapCodes.put(code.toInt(), code);
         }
     }
-    protected final int miCode;
-    protected final String mstrDescription;
-    protected final int miHttpStatusCode;
+    private final int miCode;
+    private final String mstrDescription;
+    private final int miHttpStatusCode;
+
     StatusCode(int iCode, String strDescription, int iHttpStatusCode) {
         miCode = iCode;
         mstrDescription = strDescription;
         miHttpStatusCode = iHttpStatusCode;
     }
+
     public int toInt() { return miCode; }
+
     public String getDescription() { return mstrDescription; }
+
     public int getHttpStatusCode() { return miHttpStatusCode; }
+
     public static StatusCode fromInt(int iCode) {
         return mmapCodes.get(iCode);
     }

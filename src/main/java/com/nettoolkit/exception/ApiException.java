@@ -3,7 +3,7 @@ package com.nettoolkit.exception;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import com.nettoolkit.internal.StatusCode;
+import com.nettoolkit.api.StatusCode;
 import com.nettoolkit.json.JSONArray;
 import com.nettoolkit.json.JSONException;
 import com.nettoolkit.json.JSONObject;
