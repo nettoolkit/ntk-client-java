@@ -8,14 +8,20 @@ import com.nettoolkit.internal.StatusCode;
  */
 public class ApiException extends NetToolKitException {
     private StatusCode mStatusCode;
+    private String mstrErrorMessage;
 
     public ApiException(int iCode, String strMessage) {
         super(getReadableStatusCode(iCode) + ": " + strMessage);
         mStatusCode = StatusCode.fromInt(iCode);
+        mstrErrorMessage = strMessage;
     }
 
     public StatusCode getStatusCode() {
         return mStatusCode;
+    }
+
+    public String getErrorMessage() {
+        return mstrErrorMessage;
     }
 
     protected static String getReadableStatusCode(int iCode) {
