@@ -12,7 +12,6 @@ import java.net.http.HttpTimeoutException;
 import java.time.Duration;
 import com.nettoolkit.exception.ApiConnectionException;
 import com.nettoolkit.exception.ApiException;
-import com.nettoolkit.exception.ApiV2Exception;
 import com.nettoolkit.exception.ParsingException;
 import com.nettoolkit.internal.request.BaseApiRequest;
 import com.nettoolkit.internal.http.HttpMethod;
@@ -86,7 +85,7 @@ public abstract class NetToolKitClient {
     }
 
     public ApiV2Response sendV2(BaseApiRequest request)
-            throws ParsingException, ApiConnectionException, ApiV2Exception {
+            throws ParsingException, ApiConnectionException, ApiException {
         HttpRequest httpRequest = request.toHttpRequest();
 
         HttpResponse<String> httpResponse;

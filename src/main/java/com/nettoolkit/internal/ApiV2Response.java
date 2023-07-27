@@ -3,7 +3,7 @@ package com.nettoolkit.internal;
 import java.net.http.HttpResponse;
 import com.nettoolkit.exception.ParsingException;
 import com.nettoolkit.exception.ResponseParsingException;
-import com.nettoolkit.exception.ApiV2Exception;
+import com.nettoolkit.exception.ApiException;
 import com.nettoolkit.json.JSONObject;
 import com.nettoolkit.json.JSONArray;
 import com.nettoolkit.json.JSONException;
@@ -13,7 +13,7 @@ public class ApiV2Response {
     private JSONObject mjsonResponseBody;
 
     public ApiV2Response(HttpResponse<String> response)
-            throws ParsingException, ApiV2Exception {
+            throws ParsingException, ApiException {
         mstrResponseBody = response.body();
         mjsonResponseBody = parseBody(mstrResponseBody);
     }
@@ -68,7 +68,7 @@ public class ApiV2Response {
 
     // Helpers
     protected static JSONObject parseBody(String strResponseJson)
-            throws ParsingException, ApiV2Exception {
+            throws ParsingException, ApiException {
         if (strResponseJson == null || strResponseJson.length() < 1) {
             throw new ParsingException("Got empty response", strResponseJson);
         }
@@ -76,7 +76,7 @@ public class ApiV2Response {
             JSONObject jsonBody = new JSONObject(strResponseJson);
             JSONArray jsonErrors = jsonBody.optJSONArray("errors");
             if (jsonErrors != null && jsonErrors.length() > 0) {
-                throw new ApiV2Exception(ApiV2Exception.ApiError.listFromJson(jsonErrors));
+                throw new ApiException(ApiException.ApiError.listFromJson(jsonErrors));
             }
             return jsonBody;
         } catch (JSONException jsone) {
