@@ -1,13 +1,10 @@
 package com.nettoolkit.gatekeeper;
 
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 import com.nettoolkit.exception.NetToolKitException;
 import com.nettoolkit.exception.BadArgumentException;
-import com.nettoolkit.gatekeeper.GatekeeperClient;
-import com.nettoolkit.internal.Parameters;
-import com.nettoolkit.internal.ApiResponse;
 import com.nettoolkit.internal.request.PostRequest;
-import com.nettoolkit.internal.http.HttpMethod;
 import com.nettoolkit.internal.http.HttpContentType;
 
 /**
@@ -70,6 +67,20 @@ public class AddVisitorRequest extends PostRequest {
      */
     public AddVisitorRequest visitor(String strVisitor) {
         getParameters().put("visitor", strVisitor);
+        return this;
+    }
+
+    /**
+     * Sets an expiration value after which any visitors created by this request will be removed
+     * from the visitor group.
+     *
+     * @param iTimeNum
+     * @param timeUnit
+     * @return this
+     */
+    public AddVisitorRequest expiration(int iTimeNum, TimeUnit timeUnit) {
+        getParameters().put("expiration_time_num", iTimeNum);
+        getParameters().put("expiration_time_unit", timeUnit.name());
         return this;
     }
 
