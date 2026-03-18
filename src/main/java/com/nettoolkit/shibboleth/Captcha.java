@@ -11,7 +11,7 @@ public class Captcha implements Serializable {
     private final ShibbolethClient.CaptchaType type;
     private final String id;
     private final String caption;
-    private final JSONObject displayInformation;
+    private final JSONObject displayInformation, mjsonCaptcha;
 
     public Captcha(JSONObject jsonCaptcha) throws ParsingException {
         try {
@@ -19,19 +19,21 @@ public class Captcha implements Serializable {
             this.id = jsonCaptcha.getString("id");
             this.displayInformation = jsonCaptcha.getJSONObject("displayInformation");
             this.caption = this.displayInformation.getString("caption");
+            this.mjsonCaptcha = jsonCaptcha;
         } catch (JSONException jsone) {
             throw new ParsingException(jsone, jsonCaptcha);
         }
     }
 
     public JSONObject toJSON() throws JSONException {
-        JSONObject jsonCaptcha = new JSONObject();
+        return mjsonCaptcha;
+        // JSONObject jsonCaptcha = new JSONObject();
 
-        jsonCaptcha.put("type", this.type);
-        jsonCaptcha.put("id", this.id);
-        jsonCaptcha.put("displayInformation", this.displayInformation);
+        // jsonCaptcha.put("type", this.type);
+        // jsonCaptcha.put("id", this.id);
+        // jsonCaptcha.put("displayInformation", this.displayInformation);
 
-        return jsonCaptcha;
+        // return jsonCaptcha;
     }
 
 

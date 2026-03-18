@@ -4,7 +4,7 @@
     <groupId>com.nettoolkit</groupId>
     <artifactId>ntk-client-java</artifactId>
     <packaging>jar</packaging>
-    <version>2.0.9-beta</version>
+    <version>2.0.10-beta</version>
     <name>ntk-client-java</name>
     <description>
         Java library for the NetToolKit web API.
@@ -23,8 +23,6 @@
 
     <developers>
         <developer>
-            <name>Daniel Woznicki</name>
-            <email>danwoz@nettoolkit.com</email>
             <organization>NetToolKit</organization>
             <organizationUrl>https://www.nettoolkit.com/</organizationUrl>
         </developer>
@@ -45,11 +43,11 @@
     <distributionManagement>
         <snapshotRepository>
             <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <url>https://ossrh-staging-api.sonatype.central.sonatype.com/content/repositories/snapshots</url>
         </snapshotRepository>
         <repository>
             <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <url>https://ossrh-staging-api.sonatype.central.sonatype.com/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
 
@@ -112,7 +110,7 @@
                 <extensions>true</extensions>
                 <configuration>
                     <serverId>ossrh</serverId>
-                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <nexusUrl>https://ossrh-staging-api.central.sonatype.com/</nexusUrl>
                     <autoReleaseAfterClose>true</autoReleaseAfterClose>
                 </configuration>
             </plugin>
