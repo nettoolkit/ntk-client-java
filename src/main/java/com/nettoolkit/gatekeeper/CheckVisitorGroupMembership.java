@@ -48,9 +48,8 @@ public class CheckVisitorGroupMembership extends GetRequest {
     public boolean send() throws NetToolKitException {
         ApiResponse response = getClient().send(this);
         JSONObject jsonResult = response.getFirstResult();
-        JSONObject jsonMembership = jsonResult.optJSONObject("membership");
-        if (jsonMembership != null) {
-            String strIsMember = jsonMembership.optString("is_member");
+        if (jsonResult != null) {
+            String strIsMember = jsonResult.optString("is_member");
             if (strIsMember != null) {
                 return strIsMember.equalsIgnoreCase("true");
             }
@@ -58,4 +57,3 @@ public class CheckVisitorGroupMembership extends GetRequest {
         throw new NetToolKitException("Missing or invalid response from NetToolKit");
     }
 }
-
