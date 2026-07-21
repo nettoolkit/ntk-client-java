@@ -19,12 +19,21 @@ import com.nettoolkit.gatekeeper.VisitorGroup;
  * </pre></blockquote>
  */
 public class GetVisitorGroupsRequest extends GetRequest {
+    protected String mstrVisitor = null;
     public GetVisitorGroupsRequest(GatekeeperClient client) {
         super(client);
     }
 
     @Override
-    public String getPath() { return "/v1/gatekeeper/visitor-groups"; }
+    public String getPath() {
+        if (mstrVisitor == null) return "/v1/gatekeeper/visitor-groups";
+        return "/v1/gatekeeper/visitor-groups/" + mstrVisitor;
+    }
+
+    public GetVisitorGroupsRequest visitor(String strVisitor) {
+        mstrVisitor = strVisitor;
+        return this;
+    }
 
     /**
      * Sends get visitor groups request and parses response.
